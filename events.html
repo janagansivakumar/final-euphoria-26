@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Euphoria Events - PSGCAS</title>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@700&display=swap" rel="stylesheet">
+  <link href="stylee.css" href="stylesheet">
+<style>
+body {
+  margin: 0;
+  font-family: 'Pirata One', cursive;
+  background: linear-gradient(180deg, #0a1a1a 0%, #0f2f3f 100%);
+  color: #d4af37;
+}
+
+/* Smoky overlay */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.7) 100%);
+  pointer-events: none;
+  z-index: -1;
+  animation: smokeDrift 20s infinite alternate;
+}
+
+@keyframes smokeDrift {
+  0% { transform: translateX(0) translateY(0); opacity: 0.5; }
+  50% { transform: translateX(-30px) translateY(20px); opacity: 0.7; }
+  100% { transform: translateX(30px) translateY(-20px); opacity: 0.5; }
+}
+
+/* Section titles (On Stage / Off Stage headings) */
+h1 {
+  text-align: center;
+  font-size: 3rem;
+  color: #c0c0c0;
+  text-shadow: 0 0 15px #c0c0c0, 0 0 25px #00f0ff; /* glow only here */
+  margin: 20px 0;
+}
+
+.TITLE {
+  text-align: center;
+}
+
+/* Grid layout */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  justify-content: center;
+  align-items: start;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 900px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .grid { grid-template-columns: 1fr; }
+}
+
+/* Event cards */
+.card {
+  background: rgba(0,0,0,0.7);
+  border: 2px solid #c0c0c0;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 0 15px #00f0ff;
+  transition: transform 0.3s ease;
+  min-height: 350px;   /* ensures all cards are at least this tall */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* keeps content spaced nicely */
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Event names (remove toxic blue glow, increase size) */
+.card h3 {
+  color: #c0c0c0;
+  margin: 10px 0;
+  font-size: 1.6rem; /* increased size */
+  text-shadow: none; /* no glow */
+}
+
+/* Buttons */
+.view-btn, .register-btn {
+  margin-top: 10px;
+  padding: 8px 15px;
+  border: 2px solid #c0c0c0;
+  border-radius: 6px;
+  background: transparent;
+  color: #c0c0c0;
+  font-family: 'Pirata One', cursive;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.view-btn:hover, .register-btn:hover {
+  background: #00f0ff;
+  color: #000;
+  box-shadow: 0 0 15px #00f0ff;
+}
+
+/* Rules text */
+.rules {
+  display: none;
+  margin-top: 10px;
+  text-align: left;
+  font-family: 'EB Garamond', serif;
+  color: #d4af37;
+}
+</style>
+</head>
+<body>
+  <!-- Add other On Stage events similarly -->
+  </div>
+
+  <h1>Off Stage Events</h1>
+  <hr>
+  <br>
+  <div class="grid">
+    <!-- Example Off Stage Event -->
+    <div class="card">
+      <img src="quiz.jpg" alt="Quiz">
+      <h3>Bliss Quiz</h3>
+      <button class="view-btn" onclick="toggleRules(this)">View</button>
+      <div class="rules">
+        <p>Teams of 2 (lonewolves allowed). Prelims: 20 questions. Top 8 teams qualify for finals. General quiz. Star-marked questions as tie breakers.</p>
+        <button class="register-btn" onclick="redirectRegister('Bliss Quiz')">Register</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="painting.jpg" alt="Art Attack">
+      <h3>THE BRAIN-BOX (SITUATION ANALYSIS)</h3>
+      <button class="view-btn" onclick="toggleRules(this)">View</button>
+      <div class="rules">
+        <p>Two rounds: Pencil sketch (30 min) and artwork (60 min). Sheets provided. Bring own paints/stationery. Collage/mixed media not allowed. Judges’ decision final.</p>
+        <button class="register-btn" onclick="redirectRegister('Art Attack')">Register</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="quiz.jpg" alt="Quiz">
+      <h3>TAMILODU VILAYADU</h3>
+      <button class="view-btn" onclick="toggleRules(this)">View</button>
+      <div class="rules">
+        <p>Participants must be able to read and write in Tamil.
+          ●	 Participants should possess basic knowledge of Tamil language and literature.
+          ●	The entire event will be conducted strictly in Tamil.
+          ●	No use of mobile phones, books, or any reference materials during the event.
+          ●	The judges’ decision will be final and binding.
+        </p>
+        <button class="register-btn" onclick="redirectRegister('Bliss Quiz')">Register</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="quiz.jpg" alt="Quiz">
+      <h3>KITCHEN CLASH(COOK WITH FLAME</h3>
+      <button class="view-btn" onclick="toggleRules(this)">View</button>
+      <div class="rules">
+        <p>Participants must be able to read and write in Tamil.
+          ●	 Participants should possess basic knowledge of Tamil language and literature.
+          ●	The entire event will be conducted strictly in Tamil.
+          ●	No use of mobile phones, books, or any reference materials during the event.
+          ●	The judges’ decision will be final and binding.
+        </p>
+        <button class="register-btn" onclick="redirectRegister('Bliss Quiz')">Register</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="quiz.jpg" alt="Quiz">
+      <h3>ART ATTACK(PAINTING/SKETCHING)</h3>
+      <button class="view-btn" onclick="toggleRules(this)">View</button>
+      <div class="rules">
+        <p>Participants must be able to read and write in Tamil.
+          ●	 Participants should possess basic knowledge of Tamil language and literature.
+          ●	The entire event will be conducted strictly in Tamil.
+          ●	No use of mobile phones, books, or any reference materials during the event.
+          ●	The judges’ decision will be final and binding.
+        </p>
+        <button class="register-btn" onclick="redirectRegister('Bliss Quiz')">Register</button>
+      </div>
+    </div>
+    <div class="card">
+      <img src="quiz.jpg" alt="Quiz">
+      <h3>MOCK UNITED NATIONS</h3>
+      <button class="view-btn" onclick="toggleRules(this)">View</button>
+      <div class="rules">
+        <p>Participants must be able to read and write in Tamil.
+          ●	 Participants should possess basic knowledge of Tamil language and literature.
+          ●	The entire event will be conducted strictly in Tamil.
+          ●	No use of mobile phones, books, or any reference materials during the event.
+          ●	The judges’ decision will be final and binding.
+        </p>
+        <button class="register-btn" onclick="redirectRegister('Bliss Quiz')">Register</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="quiz.jpg" alt="Quiz">
+      <h3>Beyond the Pitch: Football Saga </h3>
+      <button class="view-btn" onclick="toggleRules(this)">View</button>
+      <div class="rules">
+        <p>Participants must be able to read and write in Tamil.
+          ●	 Participants should possess basic knowledge of Tamil language and literature.
+          ●	The entire event will be conducted strictly in Tamil.
+          ●	No use of mobile phones, books, or any reference materials during the event.
+          ●	The judges’ decision will be final and binding.
+        </p>
+        <button class="register-btn" onclick="redirectRegister('Bliss Quiz')">Register</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="quiz.jpg" alt="Quiz">
+      <h3>Clash Of Clans</h3>
+      <button class="view-btn" onclick="toggleRules(this)">View</button>
+      <div class="rules">
+        <p>Participants must be able to read and write in Tamil.
+          ●	 Participants should possess basic knowledge of Tamil language and literature.
+          ●	The entire event will be conducted strictly in Tamil.
+          ●	No use of mobile phones, books, or any reference materials during the event.
+          ●	The judges’ decision will be final and binding.
+        </p>
+        <button class="register-btn" onclick="redirectRegister('Bliss Quiz')">Register</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="quiz.jpg" alt="Quiz">
+      <h3>LENS LEGACY(VIDEO GRAPHY)</h3>
+      <button class="view-btn" onclick="toggleRules(this)">View</button>
+      <div class="rules">
+        <p>Participants must be able to read and write in Tamil.
+          ●	 Participants should possess basic knowledge of Tamil language and literature.
+          ●	The entire event will be conducted strictly in Tamil.
+          ●	No use of mobile phones, books, or any reference materials during the event.
+          ●	The judges’ decision will be final and binding.
+        </p>
+        <button class="register-btn" onclick="redirectRegister('Bliss Quiz')">Register</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="quiz.jpg" alt="Quiz">
+      <h3>PITCH BAZAAR</h3>
+      <button class="view-btn" onclick="toggleRules(this)">View</button>
+      <div class="rules">
+        <p>Participants must be able to read and write in Tamil.
+          ●	 Participants should possess basic knowledge of Tamil language and literature.
+          ●	The entire event will be conducted strictly in Tamil.
+          ●	No use of mobile phones, books, or any reference materials during the event.
+          ●	The judges’ decision will be final and binding.
+        </p>
+        <button class="register-btn" onclick="redirectRegister('Bliss Quiz')">Register</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="quiz.jpg" alt="Quiz">
+      <h3>IPL AUCTION</h3>
+      <button class="view-btn" onclick="toggleRules(this)">View</button>
+      <div class="rules">
+        <p>Participants must be able to read and write in Tamil.
+          ●	 Participants should possess basic knowledge of Tamil language and literature.
+          ●	The entire event will be conducted strictly in Tamil.
+          ●	No use of mobile phones, books, or any reference materials during the event.
+          ●	The judges’ decision will be final and binding.
+        </p>
+        <button class="register-btn" onclick="redirectRegister('Bliss Quiz')">Register</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="quiz.jpg" alt="Quiz">
+      <h3>CINEFESTO</h3>
+      <button class="view-btn" onclick="toggleRules(this)">View</button>
+      <div class="rules">
+        <p>Participants must be able to read and write in Tamil.
+          ●	 Participants should possess basic knowledge of Tamil language and literature.
+          ●	The entire event will be conducted strictly in Tamil.
+          ●	No use of mobile phones, books, or any reference materials during the event.
+          ●	The judges’ decision will be final and binding.
+        </p>
+        <button class="register-btn" onclick="redirectRegister('Bliss Quiz')">Register</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="quiz.jpg" alt="Quiz">
+      <h3>TREASURE HUNT</h3>
+      <button class="view-btn" onclick="toggleRules(this)">View</button>
+      <div class="rules">
+        <p>Participants must be able to read and write in Tamil.
+          ●	 Participants should possess basic knowledge of Tamil language and literature.
+          ●	The entire event will be conducted strictly in Tamil.
+          ●	No use of mobile phones, books, or any reference materials during the event.
+          ●	The judges’ decision will be final and binding.
+        </p>
+        <button class="register-btn" onclick="redirectRegister('Bliss Quiz')">Register</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="quiz.jpg" alt="Quiz">
+      <h3>THE MIND SPARK (EXTEMPORE)</h3>
+      <button class="view-btn" onclick="toggleRules(this)">View</button>
+      <div class="rules">
+        <p>Participants must be able to read and write in Tamil.
+          ●	 Participants should possess basic knowledge of Tamil language and literature.
+          ●	The entire event will be conducted strictly in Tamil.
+          ●	No use of mobile phones, books, or any reference materials during the event.
+          ●	The judges’ decision will be final and binding.
+        </p>
+        <button class="register-btn" onclick="redirectRegister('Bliss Quiz')">Register</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="quiz.jpg" alt="Quiz">
+      <h3>FIFA LEAGUE (E-SPORTS)</h3>
+      <button class="view-btn" onclick="toggleRules(this)">View</button>
+      <div class="rules">
+        <p>Participants must be able to read and write in Tamil.
+          ●	 Participants should possess basic knowledge of Tamil language and literature.
+          ●	The entire event will be conducted strictly in Tamil.
+          ●	No use of mobile phones, books, or any reference materials during the event.
+          ●	The judges’ decision will be final and binding.
+        </p>
+        <button class="register-btn" onclick="redirectRegister('Bliss Quiz')">Register</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="quiz.jpg" alt="Quiz">
+      <h3>MURDER MYSTERY</h3>
+      <button class="view-btn" onclick="toggleRules(this)">View</button>
+      <div class="rules">
+        <p>Participants must be able to read and write in Tamil.
+          ●	 Participants should possess basic knowledge of Tamil language and literature.
+          ●	The entire event will be conducted strictly in Tamil.
+          ●	No use of mobile phones, books, or any reference materials during the event.
+          ●	The judges’ decision will be final and binding.
+        </p>
+        <button class="register-btn" onclick="redirectRegister('Bliss Quiz')">Register</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="quiz.jpg" alt="Quiz">
+      <h3>CHESS </h3>
+      <button class="view-btn" onclick="toggleRules(this)">View</button>
+      <div class="rules">
+        <p>Participants must be able to read and write in Tamil.
+          ●	 Participants should possess basic knowledge of Tamil language and literature.
+          ●	The entire event will be conducted strictly in Tamil.
+          ●	No use of mobile phones, books, or any reference materials during the event.
+          ●	The judges’ decision will be final and binding.
+        </p>
+        <button class="register-btn" onclick="redirectRegister('Bliss Quiz')">Register</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="quiz.jpg" alt="BIZTINCT">
+      <h3>BIZTINCT</h3>
+      <button class="view-btn" onclick="toggleRules(this)">View</button>
+      <div class="rules">
+        <p>Participants must be able to read and write in Tamil.
+          ●	 Participants should possess basic knowledge of Tamil language and literature.
+          ●	The entire event will be conducted strictly in Tamil.
+          ●	No use of mobile phones, books, or any reference materials during the event.
+          ●	The judges’ decision will be final and binding.
+        </p>
+        <button class="register-btn" onclick="redirectRegister('Bliss Quiz')">Register</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="quiz.jpg" alt="Quiz">
+      <h3>BEAT THE BUDGET</h3>
+      <button class="view-btn" onclick="toggleRules(this)">View</button>
+      <div class="rules">
+        <p>Participants must be able to read and write in Tamil.
+          ●	 Participants should possess basic knowledge of Tamil language and literature.
+          ●	The entire event will be conducted strictly in Tamil.
+          ●	No use of mobile phones, books, or any reference materials during the event.
+          ●	The judges’ decision will be final and binding.
+        </p>
+        <button class="register-btn" onclick="redirectRegister('Bliss Quiz')">Register</button>
+      </div>
+    </div>
+    <BR>
+  <DIV CLASS="TITLE">
+    <h1>On Stage Events</h1>
+  </DIV>
+  
+  <hr>
+
+    
+  <div class="grid">
+    <!-- Example On Stage Event -->
+    <div class="card">
+      <img src="solo_dance.jpg" alt="Solo Dance">
+      <h3>Beyond the Step (Solo Dance)</h3>
+      <button class="view-btn" onclick="toggleRules(this)">View</button>
+      <div class="rules">
+        <p>Individual participation. Duration: 3–4 minutes. Only MP3 format allowed. Submit audio beforehand. Avoid obscene songs/costumes. Judges’ decision final.</p>
+        <button class="register-btn" onclick="redirectRegister('Beyond the Step')">Register</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="solo_singing.jpg" alt="Solo Singing">
+      <h3>Note by Note (Solo Singing)</h3>
+      <button class="view-btn" onclick="toggleRules(this)">View</button>
+      <div class="rules">
+        <p>Individual participation. Duration: 3 minutes. Prelims conducted. Song choice open but no slangs. Karaoke permitted. Judges’ decision final.</p>
+        <button class="register-btn" onclick="redirectRegister('Note by Note')">Register</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="solo_singing.jpg" alt="Solo Singing">
+      <h3>IGNITE X (GROUP DANCE)</h3>
+      <button class="view-btn" onclick="toggleRules(this)">View</button>
+      <div class="rules">
+        <p>Individual participation. Duration: 3 minutes. Prelims conducted. Song choice open but no slangs. Karaoke permitted. Judges’ decision final.</p>
+        <button class="register-btn" onclick="redirectRegister('Note by Note')">Register</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="quiz.jpg" alt="Quiz">
+      <h3>EUPHORIA'S GOT TALENT (VARIETY ENTERTAINMENT)</h3>
+      <button class="view-btn" onclick="toggleRules(this)">View</button>
+      <div class="rules">
+        <p>Participants must be able to read and write in Tamil.
+          ●	 Participants should possess basic knowledge of Tamil language and literature.
+          ●	The entire event will be conducted strictly in Tamil.
+          ●	No use of mobile phones, books, or any reference materials during the event.
+          ●	The judges’ decision will be final and binding.
+        </p>
+        <button class="register-btn" onclick="redirectRegister('Bliss Quiz')">Register</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="quiz.jpg" alt="Quiz">
+      <h3>SPOTLIGHT SHUFFLE (ADAPT TUNES)</h3>
+      <button class="view-btn" onclick="toggleRules(this)">View</button>
+      <div class="rules">
+        <p>Participants must be able to read and write in Tamil.
+          ●	 Participants should possess basic knowledge of Tamil language and literature.
+          ●	The entire event will be conducted strictly in Tamil.
+          ●	No use of mobile phones, books, or any reference materials during the event.
+          ●	The judges’ decision will be final and binding.
+        </p>
+        <button class="register-btn" onclick="redirectRegister('Bliss Quiz')">Register</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="quiz.jpg" alt="Quiz">
+      <h3>BATTLE OF BANDS (BAND)</h3>
+      <button class="view-btn" onclick="toggleRules(this)">View</button>
+      <div class="rules">
+        <p>Participants must be able to read and write in Tamil.
+          ●	 Participants should possess basic knowledge of Tamil language and literature.
+          ●	The entire event will be conducted strictly in Tamil.
+          ●	No use of mobile phones, books, or any reference materials during the event.
+          ●	The judges’ decision will be final and binding.
+        </p>
+        <button class="register-btn" onclick="redirectRegister('Bliss Quiz')">Register</button>
+      </div>
+   </div>
+
+    
+
+
+    
+
+  <script>
+    function toggleRules(btn) {
+      const rules = btn.nextElementSibling;
+      rules.style.display = rules.style.display === "block" ? "none" : "block";
+    }
+
+    function redirectRegister(eventName) {
+      // Redirect to register page with event name as query parameter
+      window.location.href = "http://127.0.0.1:5000?event=" + encodeURIComponent(eventName);
+    }
+  </script>
+</body>
+</html>
