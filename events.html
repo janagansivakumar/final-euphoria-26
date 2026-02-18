@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@700&display=swap" rel="stylesheet">
   <link href="stylee.css" href="stylesheet">
 <style>
-body {
+    body {
   margin: 0;
   font-family: 'Open Sans', sans-serif; /* Switched to Open Sans for improved readability and a clean, modern feel with slight elegance */
   background: linear-gradient(180deg, #0a1a1a 0%, #0f2f3f 100%);
@@ -101,7 +101,7 @@ h1 {
   }
 }
 
-/* Event cards, styled like treasure chests with enhanced animations - now uniform height for neat alignment */
+/* Event cards, styled like treasure chests with enhanced animations - now flexible height to allow full rules visibility */
 .card {
   background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(15, 47, 63, 0.8) 100%); /* Subtle gradient for depth */
   border: 2px solid #c0c0c0;
@@ -110,12 +110,12 @@ h1 {
   text-align: center;
   box-shadow: 0 0 15px #00f0ff, inset 0 0 10px rgba(0, 240, 255, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  height: 450px; /* Fixed height for uniform card sizes */
+  min-height: 450px; /* Changed to min-height to allow expansion when rules are shown */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   position: relative;
-  overflow: hidden; /* Prevents content overflow for neat appearance */
+  overflow: visible; /* Changed to visible to allow full content display without clipping */
 }
 
 .card::before {
@@ -216,7 +216,7 @@ h1 {
   100% { transform: scale(1); }
 }
 
-/* Rules text, hidden by default, with slide-in animation when shown */
+/* Rules text, now fully visible without scrolling, with register button at the end */
 .rules {
   display: none;
   margin-top: 10px;
@@ -226,11 +226,29 @@ h1 {
   font-size: 1rem;
   line-height: 1.5;
   animation: rulesSlideIn 0.5s ease-out;
+  /* Removed max-height and overflow-y to allow full visibility without scrolling */
 }
 
 @keyframes rulesSlideIn {
   0% { opacity: 0; transform: translateX(-20px); }
   100% { opacity: 1; transform: translateX(0); }
+}
+
+/* Special styling for the register button inside rules to make it highly visible at the end */
+.rules .register-btn {
+  background: #00f0ff; /* Pre-filled background for prominence */
+  color: #000; /* Dark text for contrast */
+  box-shadow: 0 0 15px #00f0ff; /* Initial glow */
+  animation: registerGlow 1s ease-in-out infinite alternate; /* Pulsing glow to draw attention */
+  margin-top: 15px; /* Extra space for emphasis */
+  font-weight: bold; /* Make it bolder */
+  width: 100%; /* Full width for better clickability */
+  display: block; /* Ensures it's a block element for full width */
+}
+
+@keyframes registerGlow {
+  0% { box-shadow: 0 0 15px #00f0ff; }
+  100% { box-shadow: 0 0 25px #00f0ff, 0 0 35px #00f0ff; } /* Intensified glow */
 }
 </style>
 </head>
