@@ -11,43 +11,62 @@
 <style>
 body {
   margin: 0;
-  font-family: 'Pirata One', cursive;
+  font-family: 'Open Sans', sans-serif; /* Switched to Open Sans for improved readability and a clean, modern feel with slight elegance */
   background: linear-gradient(180deg, #0a1a1a 0%, #0f2f3f 100%);
   color: #d4af37;
+  line-height: 1.6; /* Improved line height for better readability */
 }
 
-/* Smoky overlay */
+/* Smoky overlay, evoking foggy seas with enhanced drift */
 body::before {
   content: "";
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: radial-gradient(circle at center, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.7) 100%);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0.7) 100%);
   pointer-events: none;
   z-index: -1;
-  animation: smokeDrift 20s infinite alternate;
+  animation: smokeDrift 20s infinite alternate ease-in-out;
 }
 
 @keyframes smokeDrift {
-  0% { transform: translateX(0) translateY(0); opacity: 0.5; }
-  50% { transform: translateX(-30px) translateY(20px); opacity: 0.7; }
-  100% { transform: translateX(30px) translateY(-20px); opacity: 0.5; }
+  0% {
+    transform: translateX(0) translateY(0) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateX(-30px) translateY(20px) scale(1.05);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateX(30px) translateY(-20px) scale(0.95);
+    opacity: 0.5;
+  }
 }
 
-/* Section titles (On Stage / Off Stage headings) */
+/* Section titles (e.g., On Stage / Off Stage headings) with subtle sway animation */
 h1 {
   text-align: center;
-  font-size: 3rem;
+  font-size: 2.5rem; /* Readable size */
   color: #c0c0c0;
-  text-shadow: 0 0 15px #c0c0c0, 0 0 25px #00f0ff; /* glow only here */
+  text-shadow: 0 0 15px #c0c0c0, 0 0 25px #00f0ff;
   margin: 20px 0;
+  font-family: 'Cinzel Decorative', serif; /* Changed to Cinzel Decorative for a bold, pirate-map-like serif font */
+  animation: titleSway 4s ease-in-out infinite alternate;
+}
+
+@keyframes titleSway {
+  0% { transform: translateX(-5px) rotate(-1deg); }
+  100% { transform: translateX(5px) rotate(1deg); }
 }
 
 .TITLE {
   text-align: center;
 }
 
-/* Grid layout */
+/* Grid layout for event cards, with a subtle fade-in animation */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -55,36 +74,70 @@ h1 {
   padding: 20px;
   justify-content: center;
   align-items: start;
+  animation: gridFadeIn 1s ease-out;
 }
 
-/* Responsive adjustments */
+@keyframes gridFadeIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive adjustments for different screen sizes */
 @media (max-width: 1200px) {
-  .grid { grid-template-columns: repeat(3, 1fr); }
-}
-@media (max-width: 900px) {
-  .grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 600px) {
-  .grid { grid-template-columns: 1fr; }
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
-/* Event cards */
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Event cards, styled like treasure chests with enhanced animations - now uniform height for neat alignment */
 .card {
-  background: rgba(0,0,0,0.7);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(15, 47, 63, 0.8) 100%); /* Subtle gradient for depth */
   border: 2px solid #c0c0c0;
-  border-radius: 10px;
+  border-radius: 15px; /* Slightly more rounded for a chest-like feel */
   padding: 15px;
   text-align: center;
-  box-shadow: 0 0 15px #00f0ff;
-  transition: transform 0.3s ease;
-  min-height: 350px;   /* ensures all cards are at least this tall */
+  box-shadow: 0 0 15px #00f0ff, inset 0 0 10px rgba(0, 240, 255, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 450px; /* Fixed height for uniform card sizes */
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* keeps content spaced nicely */
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden; /* Prevents content overflow for neat appearance */
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.1) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
 }
 
 .card:hover {
-  transform: scale(1.05);
+  transform: scale(1.05) rotate(1deg); /* Added slight rotation for pirate sway */
+  box-shadow: 0 0 25px #00f0ff, inset 0 0 20px rgba(0, 240, 255, 0.2);
+}
+
+.card:hover::before {
+  opacity: 1;
 }
 
 .card img {
@@ -92,42 +145,92 @@ h1 {
   height: 150px;
   object-fit: cover;
   border-radius: 8px;
+  transition: transform 0.3s ease;
 }
 
-/* Event names (remove toxic blue glow, increase size) */
+.card:hover img {
+  transform: scale(1.1); /* Image zoom on hover */
+}
+
+/* Event names (kept silver, readable, with subtle pulse) */
 .card h3 {
   color: #c0c0c0;
   margin: 10px 0;
-  font-size: 1.6rem; /* increased size */
-  text-shadow: none; /* no glow */
+  font-size: 1.6rem;
+  text-shadow: none;
+  font-family: 'Montserrat', sans-serif; /* Changed to Montserrat for a bold, modern sans-serif that's easy to read */
+  animation: textPulse 3s ease-in-out infinite;
 }
 
-/* Buttons */
-.view-btn, .register-btn {
+@keyframes textPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+/* Event descriptions - limited height for uniformity */
+.card h4 {
+  color: #d4af37;
+  margin: 10px 0;
+  font-size: 1rem;
+  line-height: 1.4;
+  font-family: 'Open Sans', sans-serif;
+  flex-grow: 1; /* Allows description to take available space */
+  overflow: hidden; /* Prevents overflow */
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* Limits to 4 lines for neatness */
+  -webkit-box-orient: vertical;
+}
+
+/* Buttons, styled like pirate call-to-actions with bounce animation */
+.view-btn,
+.register-btn {
   margin-top: 10px;
-  padding: 8px 15px;
+  padding: 10px 20px; /* Slightly larger for better touch */
   border: 2px solid #c0c0c0;
-  border-radius: 6px;
+  border-radius: 8px;
   background: transparent;
   color: #c0c0c0;
-  font-family: 'Pirata One', cursive;
+  font-family: 'Montserrat', sans-serif; /* Changed to Montserrat for consistency and readability */
+  font-size: 1rem; /* Readable size */
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: all 0.3s ease;
+  position: relative;
 }
 
-.view-btn:hover, .register-btn:hover {
+.view-btn:hover,
+.register-btn:hover {
   background: #00f0ff;
   color: #000;
   box-shadow: 0 0 15px #00f0ff;
+  transform: translateY(-2px); /* Lift effect */
 }
 
-/* Rules text */
+.view-btn:active,
+.register-btn:active {
+  animation: buttonBounce 0.2s ease;
+}
+
+@keyframes buttonBounce {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+/* Rules text, hidden by default, with slide-in animation when shown */
 .rules {
   display: none;
   margin-top: 10px;
   text-align: left;
-  font-family: 'EB Garamond', serif;
+  font-family: 'Open Sans', sans-serif; /* Consistent with body font for readability */
   color: #d4af37;
+  font-size: 1rem;
+  line-height: 1.5;
+  animation: rulesSlideIn 0.5s ease-out;
+}
+
+@keyframes rulesSlideIn {
+  0% { opacity: 0; transform: translateX(-20px); }
+  100% { opacity: 1; transform: translateX(0); }
 }
 </style>
 </head>
